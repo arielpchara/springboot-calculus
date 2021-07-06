@@ -1,0 +1,32 @@
+version: "3.1"
+services:
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: mysecretpassword
+            POSTGRES_USER: calculus
+            POSTGRES_DB: calculus
+        networks:
+            - calculus
+        volumes: 
+            - ./data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+    ms:
+        image: maven:openjdk
+        working_dir: /app
+        restart: always
+        networks:
+            - calculus
+        volumes:
+            - ~/.m2:/root/.m2
+            - ./:/app
+        ports:
+            - 8080:8080
+        command: "mvn spring-boot:run"
+        depends_on: 
+            - db
+networks:
+  calculus:
+    driver: bridge

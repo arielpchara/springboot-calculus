@@ -1,16 +1,20 @@
 package com.pchara.app.calculus;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import com.pchara.app.calculus.model.Calculus;
+import com.pchara.app.calculus.model.GroupByOperation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +24,13 @@ public class CalculusController {
 
     @Autowired
     MessageSource messageSource;
+
+    @Autowired
+    CalculusRepository calculusRepository;
     
-    CalculusService calculusService = new CalculusService();
+    @Autowired
+    CalculusService calculusService;
+
     Logger logger = LoggerFactory.getLogger(CalculusController.class);
     
     @GetMapping("/sum/{a}/{b}")
@@ -100,8 +109,29 @@ public class CalculusController {
 
     @GetMapping("/history")
     public ResponseEntity<List<Calculus>> history() {
-        List<Calculus> history = calculusService.getHistory();
+        List<Calculus> history = calculusRepository.findAll();
         return ResponseEntity.ok(history);
+    }
+
+    @GetMapping("/history/occurrence/top3")
+    public ResponseEntity<List<GroupByOperation>> groupByOperation() {
+        List<GroupByOperation> result = calculusRepository.groupByOperations(PageRequest.of(0, 3));
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/history/result/top3")
+    public ResponseEntity<List<Calculus>> groupByResult() {
+        Page<Calculus> result = calculusRepository.findAll(
+            PageRequest.of(0, 3, Sort.by("result").descending())
+        );
+        return ResponseEntity.ok(result.getContent());
+    }
+
+
+    @GetMapping("/history/highest-results")
+    public ResponseEntity<List<Calculus>> highestResults() {
+        List<Calculus> result = calculusRepository.highCalculus();
+        return ResponseEntity.ok(result);
     }
 
 }
