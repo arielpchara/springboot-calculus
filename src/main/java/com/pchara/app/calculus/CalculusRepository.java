@@ -15,10 +15,12 @@ public interface CalculusRepository extends JpaRepository<Calculus, Long> {
     @Query("SELECT new com.pchara.app.calculus.model.GroupByOperation(c.operation, COUNT(c.operation) as occurrence)"
             + "FROM Calculus AS c GROUP BY operation ORDER BY occurrence DESC")
     List<GroupByOperation> groupByOperations(Pageable pageable);
+    
+    @Query("SELECT new com.pchara.app.calculus.model.GroupByOperation(c.operation, COUNT(c.operation) as occurrence)"
+            + "FROM Calculus AS c GROUP BY operation ORDER BY occurrence DESC")
+    List<GroupByOperation> groupByOperations();
 
-    @Query(value = "SELECT c.operations as operations"
-    + "FROM Calculus AS c", nativeQuery = true)
-    List<Calculus> highCalculus();
+    Page<Calculus> findAllByOperation(String operation, Pageable pageable);
 
     Page<Calculus> findAll(Pageable pageable);
 }

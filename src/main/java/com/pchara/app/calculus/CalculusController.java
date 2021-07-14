@@ -1,7 +1,9 @@
 package com.pchara.app.calculus;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import com.pchara.app.calculus.model.Calculus;
 import com.pchara.app.calculus.model.GroupByOperation;
@@ -13,7 +15,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -128,9 +129,14 @@ public class CalculusController {
     }
 
 
-    @GetMapping("/history/highest-results")
-    public ResponseEntity<List<Calculus>> highestResults() {
-        List<Calculus> result = calculusRepository.highCalculus();
+    @GetMapping("/history/highest-results-by-operation")
+    public ResponseEntity<Map<String, List<Calculus>>> highestResults() {
+        Map<String, List<Calculus>> result = new HashMap<String, List<Calculus>>();
+        List<GroupByOperation> results = calculusRepository.groupByOperations();
+        for(GroupByOperation op : results) {
+            Page<Calculus> calculus = calculusRepository.findAllByOperation(op.getOperation(), PageRequest.of(0, 3, Sort.by("result").descending()));
+            result.put(op.getOperation(), calculus.getContent());
+        }
         return ResponseEntity.ok(result);
     }
 
