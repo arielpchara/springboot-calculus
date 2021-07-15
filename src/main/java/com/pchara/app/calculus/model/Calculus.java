@@ -5,45 +5,47 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
 public class Calculus {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Number firstNumber;
-    private Number secondNumber;
-    private Number result;
+    private Double firstNumber;
+    private Double secondNumber;
+    private Double result;
     private String operation;
 
     public Calculus() {}
 
-    public Calculus(Number firstNumber, Number secondNumber, Number result, String operation) {
+    public Calculus(Double firstNumber, Double secondNumber, Double result, String operation) {
         setFirstNumber(firstNumber);
         setSecondNumber(secondNumber);
         setResult(result);
         setOperation(operation);
     }
 
-    public Number getFirstNumber() {
+    public Double getFirstNumber() {
         return firstNumber;
     };
-    public Number getSecondNumber() {
+    public Double getSecondNumber() {
         return secondNumber;
     };
-    public Number getResult() {
+    public Double getResult() {
         return result;
     };
     public String getOperation() {
         return operation;
     };
 
-    public void setFirstNumber(Number value) {
+    public void setFirstNumber(Double value) {
         firstNumber = value;
     };
-    public void setSecondNumber(Number value) {
+    public void setSecondNumber(Double value) {
         secondNumber = value;
     };
-    public void setResult(Number value) {
+    public void setResult(Double value) {
         result = value;
     };
     public void setOperation(String value) {

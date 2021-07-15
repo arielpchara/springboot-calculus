@@ -13,7 +13,7 @@ public class CalculusExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<Object> handleCalculusException(RuntimeException e) {
         CalculusExceptionResponse response = new CalculusExceptionResponse(e.getMessage());
-        logger.error(response.message);
+        logger.error(response.message, e);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

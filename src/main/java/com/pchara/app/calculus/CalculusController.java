@@ -36,74 +36,74 @@ public class CalculusController {
     
     @GetMapping("/sum/{a}/{b}")
     public ResponseEntity<CalculusResponse> sum(@PathVariable("a") String a, @PathVariable("b") String b, Locale locale) throws CalculusException {
-        Number numberA;
-        Number numberB;
+        Double numberA;
+        Double numberB;
         try {
-            numberA = Float.parseFloat(a);
-            numberB = Float.parseFloat(b);
+            numberA = Double.parseDouble(a);
+            numberB = Double.parseDouble(b);
         } catch (Exception e) {
             throw new CalculusException(messageSource.getMessage("calculus.invalidParams", null, locale));
         }
-        Number result = calculusService.sum(numberA, numberB);
+        Double result = calculusService.sum(numberA, numberB);
         CalculusResponse response = new CalculusResponse(result);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/sub/{a}/{b}")
     public ResponseEntity<CalculusResponse> sub(@PathVariable("a") String a, @PathVariable("b") String b, Locale locale) {
-        Number numberA;
-        Number numberB;
+        Double numberA;
+        Double numberB;
         try {
-            numberA = Float.parseFloat(a);
-            numberB = Float.parseFloat(b);
+            numberA = Double.parseDouble(a);
+            numberB = Double.parseDouble(b);
         } catch (Exception e) {
             throw new CalculusException(messageSource.getMessage("calculus.invalidParams", null, locale));
         }
-        Number result = calculusService.sub(numberA, numberB);
+        Double result = calculusService.sub(numberA, numberB);
         CalculusResponse response = new CalculusResponse(result);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/multiply/{a}/{b}")
     public ResponseEntity<CalculusResponse> multiply(@PathVariable("a") String a, @PathVariable("b") String b, Locale locale) {
-        Number numberA;
-        Number numberB;
+        Double numberA;
+        Double numberB;
         try {
-            numberA = Float.parseFloat(a);
-            numberB = Float.parseFloat(b);
+            numberA = Double.parseDouble(a);
+            numberB = Double.parseDouble(b);
         } catch (Exception e) {
             throw new CalculusException(messageSource.getMessage("calculus.invalidParams", null, locale));
         }
-        Number result = calculusService.multiply(numberA, numberB);
+        Double result = calculusService.multiply(numberA, numberB);
         CalculusResponse response = new CalculusResponse(result);
         return ResponseEntity.ok(response);
     }
     @GetMapping("/division/{a}/{b}")
     public ResponseEntity<CalculusResponse> division(@PathVariable("a") String a, @PathVariable("b") String b, Locale locale) {
-        Number numberA;
-        Number numberB;
+        Double numberA;
+        Double numberB;
         try {
-            numberA = Float.parseFloat(a);
-            numberB = Float.parseFloat(b);
+            numberA = Double.parseDouble(a);
+            numberB = Double.parseDouble(b);
         } catch (Exception e) {
             throw new CalculusException(messageSource.getMessage("calculus.invalidParams", null, locale));
         }
-        Number result = calculusService.division(numberA, numberB);
+        Double result = calculusService.division(numberA, numberB);
         CalculusResponse response = new CalculusResponse(result);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/pow/{a}/{b}")
     public ResponseEntity<CalculusResponse> pow(@PathVariable("a") String a, @PathVariable("b") String b, Locale locale) {
-        Number numberA;
-        Number numberB;
+        Double numberA;
+        Double numberB;
         try {
-            numberA = Float.parseFloat(a);
-            numberB = Float.parseFloat(b);
+            numberA = Double.parseDouble(a);
+            numberB = Double.parseDouble(b);
         } catch (Exception e) {
             throw new CalculusException(messageSource.getMessage("calculus.invalidParams", null, locale));
         }
-        Number result = calculusService.pow(numberA, numberB);
+        Double result = calculusService.pow(numberA, numberB);
         CalculusResponse response = new CalculusResponse(result);
         return ResponseEntity.ok(response);
     }
