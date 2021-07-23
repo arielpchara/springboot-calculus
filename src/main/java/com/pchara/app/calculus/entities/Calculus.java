@@ -1,4 +1,4 @@
-package com.pchara.app.calculus.model;
+package com.pchara.app.calculus.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

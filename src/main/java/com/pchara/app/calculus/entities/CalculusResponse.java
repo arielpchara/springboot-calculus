@@ -1,4 +1,4 @@
-package com.pchara.app.calculus;
+package com.pchara.app.calculus.entities;
 
 
 

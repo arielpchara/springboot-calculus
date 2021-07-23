@@ -1,4 +1,4 @@
-package com.pchara.app.calculus.model;
+package com.pchara.app.calculus.entities;
 
 public class GroupByOperation {
     private String operation;
