@@ -6,13 +6,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.pchara.app.calculus.entities.Calculus;
-import com.pchara.app.calculus.entities.CalculusResponse;
 import com.pchara.app.calculus.entities.GroupByOperation;
 import com.pchara.app.calculus.exceptions.CalculusException;
 import com.pchara.app.calculus.reporitories.CalculusRepository;
 import com.pchara.app.calculus.services.CalculusService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,11 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculusController {
 
-    @Autowired
-    private CalculusRepository calculusRepository;
+    private final CalculusRepository calculusRepository;
+    private final CalculusService calculusService;
     
-    @Autowired
-    private CalculusService calculusService;
+    public CalculusController(CalculusRepository calculusRepository, CalculusService calculusService) {
+        this.calculusRepository = calculusRepository;
+        this.calculusService = calculusService;
+    }
     
     @GetMapping("/sum/{a}/{b}")
     public ResponseEntity<Calculus> sum(@PathVariable("a") Double a, @PathVariable("b") Double b, Locale locale) throws CalculusException {

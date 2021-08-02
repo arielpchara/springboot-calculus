@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CalculusExceptionHandler {
     
-    private Logger logger = LoggerFactory.getLogger(CalculusExceptionHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(CalculusExceptionHandler.class);
 
     @ExceptionHandler
     public ResponseEntity<Object> handleCalculusException(RuntimeException e) {
         CalculusExceptionResponse response = new CalculusExceptionResponse(e.getMessage());
-        logger.error(response.message, e);
+        logger.error(response.getMessage(), e);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

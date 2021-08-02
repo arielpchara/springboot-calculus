@@ -12,6 +12,7 @@ public class GroupByResult {
     public String getOperation() {
         return operation;
     };
+
     public Number getOccurrence() {
         return occurrence;
     };
@@ -19,6 +20,7 @@ public class GroupByResult {
     public void setOperation(String value) {
         operation = value;
     };
+    
     public void setOccurrence(Number value) {
         occurrence = value;
     };

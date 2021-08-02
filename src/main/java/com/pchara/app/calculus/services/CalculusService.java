@@ -4,20 +4,23 @@ package com.pchara.app.calculus.services;
 import com.pchara.app.calculus.entities.Calculus;
 import com.pchara.app.calculus.reporitories.CalculusRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CalculusService {
 
-    @Autowired
-    CalculusRepository calculusRepository;
+    private final CalculusRepository calculusRepository;
     
+    public CalculusService(CalculusRepository calculusRepository) {
+        this.calculusRepository = calculusRepository;
+    }
+
     public Calculus sum(Double a, Double b) {
         Double result = a + b;
         Calculus calc = calculusRepository.save(new Calculus(a, b, result, "sum"));
         return calc;
     } 
+
     public Calculus sub(Double a, Double b) {
         Double result = a - b;
         Calculus calc = calculusRepository.save(new Calculus(a, b, result, "sub"));
